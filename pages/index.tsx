@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 
 // Components
@@ -9,7 +9,10 @@ import MediumCard from '../components/MediumCard';
 import LargeCard from '../components/LargeCard';
 import Footer from '../components/Footer';
 
-const Home: NextPage = ({ exploreData, cardsData }) => {
+// Types
+import type { HomePageProps } from '../ts/types/props/home';
+
+const Home: NextPage<HomePageProps> = ({ exploreData, cardsData }) => {
 	return (
 		<div>
 			<Head>
@@ -75,7 +78,7 @@ const Home: NextPage = ({ exploreData, cardsData }) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
 	const exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G').then(
 		(res) => res.json()
 	);
@@ -90,4 +93,4 @@ export async function getStaticProps() {
 			cardsData,
 		},
 	};
-}
+};
